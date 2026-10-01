@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal de Gestão & Performance</title>
+  <link rel="icon" type="image/png" href="https://repositorio-apisul.github.io/mondelez/icone-apisul.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/portal.css">
+  <link rel="stylesheet" href="css/client-brand.css">
+  <link rel="stylesheet" href="css/sidebar-user.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+  <div class="portal-shell">
+    <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand brand--apisul">
+        <img src="https://repositorio-apisul.github.io/mondelez/logo-apisul-branca.png" alt="Grupo Apisul">
+      </div>
+      <div class="side-label">Navegação</div>
+      <nav class="nav">
+        <a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1v-9"/></svg><span>Visão geral</span></a>
+        <a data-module="gr" href="gr.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.6 3.2 8.4 8 9 4.8-.6 8-4.4 8-9V6l-8-3Z"/><path d="m9.5 12 2 2 3.5-3.5"/></svg><span>Gerenciamento de Risco</span></a>
+        <a data-module="gl" href="gl.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg><span>Gestão Logística</span></a>
+        <a data-module="sinistros" href="sinistros.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg><span>Portal de Sinistros</span></a>
+      </nav>
+      <div class="sidebar-actions">
+    <div class="sidebar-foot"><span>Ambiente corporativo</span><small>Versão da atualização 2.2</small></div>
+        <button class="logout-button" id="logout-button" type="button">↪ <span>Sair</span></button>
+      </div>
+    </aside>
+    <main class="main-content dashboard-page" id="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <div class="client-badge" aria-label="Cliente atual">
+            <span class="client-icon logo-tile" id="client-logo"><span id="client-initial">A</span></span>
+            <div><small>Portal de Gestão &amp; Performance</small><strong id="client-name">Apisul</strong></div>
+          </div>
+        </div>
+        <div class="topbar-user" aria-label="Usuário autenticado">
+          <div class="topbar-user-avatar" id="topbar-user-avatar"><span>U</span></div>
+          <div><small>Usuário autenticado</small><strong id="topbar-user-name">Usuário</strong></div>
+        </div>
+      </header>
+
+      <nav class="breadcrumb" aria-label="Trilha de navegação">
+        <a href="dashboard.html">Visão geral</a><span>/</span><span aria-current="page">Gerenciamento de Risco</span>
+      </nav>
+
+      <div class="gr-hero-banner gl-hero-banner">
+        <div class="hero-text-content">
+          <div class="hero-title-group">
+            <span class="hero-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.6 3.2 8.4 8 9 4.8-.6 8-4.4 8-9V6l-8-3Z"/><path d="m9.5 12 2 2 3.5-3.5"/></svg></span>
+            <h1>Gerenciamento de Risco</h1>
+          </div>
+          <p>Indicadores de segurança, documentos normativos e treinamentos de prevenção do seu cliente, centralizados em um só lugar.</p>
+        </div>
+        <div class="hero-stats-container" id="hero-stats-container" hidden>
+          <div class="stat-card">
+            <span class="stat-label">Conteúdos exibidos</span>
+            <div class="stat-value" id="stat-total-count">0</div>
+            <span class="stat-badge" id="stat-filter-ratio">100% visíveis</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Por tipo de mídia</span>
+            <div class="stat-content-row">
+              <div class="donut-chart-mini" id="donut-chart-container"><span class="donut-chart-total">0</span></div>
+              <ul class="stat-legend" id="media-legend-container"></ul>
+            </div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Por categoria</span>
+            <ul class="bars-chart-mini" id="category-bars-container"></ul>
+          </div>
+        </div>
+      </div>
+
+      <section class="content-grid" aria-label="Frentes de GR">
+        <article class="content-card" data-target="sec-seguranca" tabindex="0" role="button" aria-label="Ir para Segurança e Prevenção">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.6 3.2 8.4 8 9 4.8-.6 8-4.4 8-9V6l-8-3Z"/><path d="m9.5 12 2 2 3.5-3.5"/></svg>Indicadores</h3>
+          <p>Painéis de acompanhamento de ocorrências, quase-acidentes e ações corretivas por unidade.</p>
+        </article>
+        <article class="content-card" data-target="sec-auditoria" tabindex="0" role="button" aria-label="Ir para Auditoria e Compliance">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v6h6"/></svg>Documentos</h3>
+          <p>Procedimentos operacionais, laudos técnicos e políticas de segurança sempre na versão mais recente.</p>
+        </article>
+        <article class="content-card" data-target="sec-treinamentos" tabindex="0" role="button" aria-label="Ir para Treinamentos">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 8 10-5 10 5-10 5-10-5Z"/><path d="M6 10.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-5.5"/></svg>Treinamentos</h3>
+          <p>Trilhas de capacitação obrigatórias e complementares, com histórico de conclusão por colaborador.</p>
+        </article>
+      </section>
+
+      <section class="content-section" id="sec-seguranca" data-category="seguranca" aria-label="Segurança e Prevenção">
+        <div class="content-section-head">
+          <span class="content-section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.6 3.2 8.4 8 9 4.8-.6 8-4.4 8-9V6l-8-3Z"/><path d="m9.5 12 2 2 3.5-3.5"/></svg></span>
+          <h2>Segurança &amp; Prevenção</h2>
+          <span class="content-section-count">3 itens</span>
+        </div>
+        <div class="media-grid">
+          <article class="media-card" data-type="powerbi">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span><span class="media-type-tag">Power BI</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-blue">Segurança</span>
+              <h4>Painel de Ocorrências e Quase-Acidentes</h4>
+              <p>Consolidação mensal de eventos, causas raiz e ações corretivas por unidade operacional.</p>
+              <div class="media-card-meta"><span>Atualizado há 2 dias</span><a class="media-card-open" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+          <article class="media-card" data-type="infografico">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span><span class="media-type-tag">Infográfico</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-blue">Segurança</span>
+              <h4>Boas Práticas de Uso de EPI</h4>
+              <p>Guia visual com os equipamentos obrigatórios por função e situação de risco.</p>
+              <div class="media-card-meta"><span>Publicado · GR</span><a class="media-card-open" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+          <article class="media-card" data-type="video">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" stroke="none"/></svg></span><span class="media-type-tag">Vídeo</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-blue">Segurança</span>
+              <h4>Treinamento de Direção Defensiva</h4>
+              <p>Módulo em vídeo com situações reais de risco em rodovia e condutas recomendadas.</p>
+              <div class="media-card-meta"><span>12 min · Trilha GR</span><a class="media-card-open" href="#">Assistir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section" id="sec-temperatura" data-category="temperatura" aria-label="Controle de Temperatura">
+        <div class="content-section-head">
+          <span class="content-section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.5a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/><path d="M12 9v4"/></svg></span>
+          <h2>Controle de Temperatura</h2>
+          <span class="content-section-count">3 itens</span>
+        </div>
+        <div class="media-grid">
+          <article class="media-card" data-type="powerbi">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span><span class="media-type-tag">Power BI</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-green">Temperatura</span>
+              <h4>Monitoramento de Câmara Fria em Tempo Real</h4>
+              <p>Leituras de sensores por veículo e unidade, com alertas de desvio de faixa térmica.</p>
+              <div class="media-card-meta"><span>Atualizado hoje</span><a class="media-card-open" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+          <article class="media-card" data-type="pdf">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v6h6"/></svg></span><span class="media-type-tag">PDF</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-green">Temperatura</span>
+              <h4>Procedimento de Controle Térmico — Rev. 04</h4>
+              <p>Instrução normativa com faixas ideais, periodicidade de aferição e responsáveis.</p>
+              <div class="media-card-meta"><span>Rev. 04 · SharePoint</span><a class="media-card-open" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+          <article class="media-card" data-type="infografico">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span><span class="media-type-tag">Infográfico</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-green">Temperatura</span>
+              <h4>Checklist de Verificação de Temperatura</h4>
+              <p>Passo a passo ilustrado para conferência na carga, no trânsito e na entrega.</p>
+              <div class="media-card-meta"><span>Publicado · GR</span><a class="media-card-open" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section" id="sec-auditoria" data-category="auditoria" aria-label="Auditoria e Compliance">
+        <div class="content-section-head">
+          <span class="content-section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <h2>Auditoria &amp; Compliance</h2>
+          <span class="content-section-count">3 itens</span>
+        </div>
+        <div class="media-grid">
+          <article class="media-card" data-type="pdf">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v6h6"/></svg></span><span class="media-type-tag">PDF</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-amber">Auditoria</span>
+              <h4>Relatório de Auditoria de Canhotos</h4>
+              <p>Resultado da conferência amostral de canhotos e evidências de entrega do período.</p>
+              <div class="media-card-meta"><span>Trimestral</span><a class="media-card-open" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+          <article class="media-card" data-type="pdf">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v6h6"/></svg></span><span class="media-type-tag">PDF</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-amber">Auditoria</span>
+              <h4>Política de Segurança da Informação</h4>
+              <p>Diretrizes de acesso, confidencialidade e uso de dados sensíveis do cliente.</p>
+              <div class="media-card-meta"><span>Vigente</span><a class="media-card-open" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+          <article class="media-card" data-type="powerbi">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span><span class="media-type-tag">Power BI</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-amber">Auditoria</span>
+              <h4>Indicadores de Conformidade Documental</h4>
+              <p>Percentual de documentos válidos, vencidos e pendentes de renovação por unidade.</p>
+              <div class="media-card-meta"><span>Atualizado semanalmente</span><a class="media-card-open" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section" id="sec-treinamentos" data-category="treinamentos" aria-label="Treinamentos">
+        <div class="content-section-head">
+          <span class="content-section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 8 10-5 10 5-10 5-10-5Z"/><path d="M6 10.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-5.5"/></svg></span>
+          <h2>Treinamentos</h2>
+          <span class="content-section-count">3 itens</span>
+        </div>
+        <div class="media-grid">
+          <article class="media-card" data-type="video">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" stroke="none"/></svg></span><span class="media-type-tag">Vídeo</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-purple">Treinamento</span>
+              <h4>Integração de Novos Motoristas</h4>
+              <p>Onboarding com normas de segurança, rotas críticas e canais de suporte.</p>
+              <div class="media-card-meta"><span>18 min</span><a class="media-card-open" href="#">Assistir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+          <article class="media-card" data-type="video">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" stroke="none"/></svg></span><span class="media-type-tag">Vídeo</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-purple">Treinamento</span>
+              <h4>Resposta a Emergências</h4>
+              <p>Protocolo de ação em acidentes, vazamentos e acionamento de brigada.</p>
+              <div class="media-card-meta"><span>22 min</span><a class="media-card-open" href="#">Assistir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+          <article class="media-card" data-type="infografico">
+            <div class="media-thumb"><i class="thumb-shimmer"></i><span class="media-thumb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span><span class="media-type-tag">Infográfico</span></div>
+            <div class="media-card-body">
+              <span class="badge badge-purple">Treinamento</span>
+              <h4>Trilha de Capacitação 2026</h4>
+              <p>Mapa visual dos módulos obrigatórios e complementares por função.</p>
+              <div class="media-card-meta"><span>Ano vigente</span><a class="media-card-open" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <p class="page-footer-note">Portal de Gestão &amp; Performance · Gerenciamento de Risco</p>
+    </main>
+  </div>
+  <script src="assets/app-shell.js"></script>
+  <script src="assets/content-funcional.js"></script>
+</body>
+</html>

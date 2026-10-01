@@ -1,0 +1,672 @@
+/* ==========================================================================
+   dashboard.css — camada visual "premium" compartilhada por TODAS as páginas
+   internas (dashboard.html, gr.html, gl.html, sinistros.html), ativada pela
+   marcação ".dashboard-page" no <main>. Isso garante que fonte, topbar,
+   logo do cliente e cards tenham a mesma identidade visual em todo o portal.
+   Reaproveita 100% dos IDs e classes que assets/app-shell.js e
+   assets/dashboard-funcional.js já manipulam — nenhuma lógica foi alterada.
+   ========================================================================== */
+
+:root {
+  --aurora-1: #2f6fed;
+  --aurora-2: #7c5cff;
+  --aurora-3: #17d1c4;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --dash-ink: #0b1830;
+}
+
+body:has(.dashboard-page) {
+  font-family: "Plus Jakarta Sans", "Geist", Inter, Arial, sans-serif;
+}
+.dashboard-page h1, .dashboard-page h2, .dashboard-page h3,
+.dashboard-page .brand strong, .dashboard-page .sidebar-client strong {
+  font-family: "Sora", "Plus Jakarta Sans", Inter, Arial, sans-serif;
+}
+
+/* subtle premium wash behind the whole content column */
+.dashboard-page.main-content {
+  background:
+    radial-gradient(720px 320px at 85% -10%, rgba(47, 111, 237, .07), transparent 60%),
+    radial-gradient(600px 300px at -5% 10%, rgba(124, 92, 255, .06), transparent 60%);
+}
+
+/* ---------- Logo tiles: sistema único para brand + logos de cliente ---------- */
+.logo-tile {
+  position: relative; border-radius: 16px; display: grid; place-items: center; overflow: hidden;
+  background: linear-gradient(155deg, #0d2a52, #061633);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.09), 0 8px 20px rgba(6, 22, 51, .25);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+}
+.logo-tile::after {
+  content: ""; position: absolute; inset: -40%; border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--aurora-1), var(--aurora-2), var(--aurora-3), var(--aurora-1));
+  opacity: .35; filter: blur(14px); z-index: 0; animation: tile-spin 9s linear infinite;
+}
+.logo-tile > * { position: relative; z-index: 1; }
+.logo-tile img { width: 72%; height: 72%; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); }
+@keyframes tile-spin { to { transform: rotate(360deg); } }
+
+/* Sidebar brand lockup */
+.portal-shell:has(.dashboard-page) .brand { gap: 13px; }
+.portal-shell:has(.dashboard-page) .brand-mark.logo-tile { width: 46px; height: 46px; border-radius: 15px; }
+.portal-shell:has(.dashboard-page) .brand-mark.logo-tile img { width: 90%; height: 90%; transform: none; }
+.portal-shell:has(.dashboard-page) .brand strong {
+  font-size: 15.5px; letter-spacing: -.01em;
+  background: linear-gradient(90deg, #fff, #bcd4f7); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.portal-shell:has(.dashboard-page) .brand small { color: #7fa0c9; letter-spacing: .06em; }
+
+/* Sidebar client tile */
+.portal-shell:has(.dashboard-page) .sidebar-client {
+  background: rgba(255,255,255,.045); border: 1px solid rgba(150,200,255,.14);
+  border-radius: 16px; padding: 11px; margin: 22px 4px 26px;
+}
+.portal-shell:has(.dashboard-page) .sidebar-client-logo.logo-tile { width: 42px; height: 42px; border-radius: 13px; }
+
+/* Topbar client + user tiles */
+.dashboard-page .client-icon.logo-tile {
+  width: 56px;
+  height: 56px;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.dashboard-page .client-icon.logo-tile::after { display: none; }
+.dashboard-page .client-icon.logo-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: none;
+}
+.dashboard-page .client-icon > span { position: absolute; inset: 0; display: grid; place-items: center; z-index: 1; color: #d5e8ff; font-weight: 800; }
+.dashboard-page .topbar-user-avatar {
+  position: relative; border-radius: 50%; padding: 2px;
+  background: linear-gradient(135deg, var(--aurora-1), var(--aurora-2));
+}
+.dashboard-page .topbar-user-avatar span,
+.dashboard-page .topbar-user-avatar img { border-radius: 50%; }
+.dashboard-page .topbar-user-avatar span { display: grid; place-items: center; width: 100%; height: 100%; background: #eef4ff; color: #14335c; }
+
+/* ---------- Sidebar polish ---------- */
+.portal-shell:has(.dashboard-page) .sidebar {
+  background: linear-gradient(190deg, #0a2246 0%, #071a37 55%, #050f22 100%);
+  border-right: 1px solid rgba(120,170,230,.08);
+}
+.portal-shell:has(.dashboard-page) .nav a { position: relative; padding-left: 16px; }
+.portal-shell:has(.dashboard-page) .nav a::before {
+  content: ""; position: absolute; left: 0; top: 50%; width: 3px; height: 0; border-radius: 3px;
+  background: linear-gradient(180deg, var(--aurora-3), var(--aurora-1)); transform: translateY(-50%);
+  transition: height .25s ease;
+}
+.portal-shell:has(.dashboard-page) .nav a.active,
+.portal-shell:has(.dashboard-page) .nav a:hover {
+  background: rgba(255,255,255,.06); backdrop-filter: blur(2px);
+}
+.portal-shell:has(.dashboard-page) .nav a.active::before,
+.portal-shell:has(.dashboard-page) .nav a:hover::before { height: 60%; }
+
+/* ---------- Topbar: barra flutuante translúcida ---------- */
+.dashboard-page .topbar {
+  margin: 16px 0 0; border-radius: 20px; border: 1px solid rgba(255,255,255,.6);
+  background: var(--glass-bg); backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: 0 12px 34px rgba(15, 40, 80, .09); height: auto; padding: 13px 18px;
+  top: 14px;
+}
+
+/* ---------- Hero / Aurora ---------- */
+.dashboard-page .welcome {
+  position: relative; overflow: hidden; margin-top: 22px; padding: 44px 40px;
+  border-radius: 26px; color: #fff; display: flex; justify-content: space-between; align-items: flex-end;
+  background: radial-gradient(1200px 480px at 15% -25%, #1b3f7a 0%, transparent 55%),
+              linear-gradient(135deg, #0a1f42, #060f24 65%);
+  box-shadow: 0 24px 60px rgba(8, 22, 48, .28);
+}
+.dashboard-page .welcome::before, .dashboard-page .welcome::after {
+  content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%;
+  filter: blur(80px); opacity: .5; z-index: 0; animation: aurora-drift 14s ease-in-out infinite alternate;
+}
+.dashboard-page .welcome::before { background: var(--aurora-1); top: -180px; left: 10%; }
+.dashboard-page .welcome::after { background: var(--aurora-2); bottom: -220px; right: 5%; animation-delay: -6s; }
+@keyframes aurora-drift { from { transform: translate(0,0) scale(1); } to { transform: translate(40px,25px) scale(1.12); } }
+.dashboard-page .welcome > * { position: relative; z-index: 1; }
+.dashboard-page .eyebrow { color: #9fc0f0; }
+.dashboard-page .welcome h1 {
+  font-size: 38px; margin: 10px 0; font-weight: 700;
+  background: linear-gradient(90deg, #fff 30%, #bcd4ff 75%, var(--aurora-3));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.dashboard-page .welcome p { color: #b7c8e6; }
+.hero-pills { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.update-list-empty { margin: 18px 0 0; font-size: 12.5px; color: var(--muted-500); text-align: center; }
+@media (max-width: 720px) { .hero-pills { align-items: flex-start; } }
+.dashboard-page .sync-pill {
+  background: rgba(255,255,255,.1); color: #d9f7ee; border: 1px solid rgba(255,255,255,.16);
+  backdrop-filter: blur(6px);
+}
+.dashboard-page .sync-pill .dot-live { background: #4be3b8; box-shadow: 0 0 0 0 rgba(75,227,184,.6); animation: pulse-ring 1.8s infinite; }
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(75,227,184,.55); }
+  70% { box-shadow: 0 0 0 7px rgba(75,227,184,0); }
+  100% { box-shadow: 0 0 0 0 rgba(75,227,184,0); }
+}
+
+/* ---------- Metrics: glass cards com acento gradiente ---------- */
+.dashboard-page .metrics article {
+  position: relative; border-radius: 18px; border: 1px solid rgba(230,236,245,.9);
+  background: linear-gradient(180deg, #ffffff, #f9fbff);
+  overflow: hidden;
+}
+.dashboard-page .metrics article::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent-a, #2f6fed), var(--accent-b, #7c5cff));
+}
+.dashboard-page .metrics article:nth-child(1) { --accent-a: #2f6fed; --accent-b: #17d1c4; }
+.dashboard-page .metrics article:nth-child(2) { --accent-a: #7c5cff; --accent-b: #2f6fed; }
+.dashboard-page .metrics article:nth-child(3) { --accent-a: #17d1c4; --accent-b: #4be3a0; }
+.dashboard-page .metrics article:nth-child(4) { --accent-a: #ff9a3c; --accent-b: #ff5c8a; }
+.dashboard-page .metrics article:hover {
+  transform: translateY(-4px); box-shadow: 0 18px 40px rgba(20, 45, 90, .12); border-color: transparent;
+}
+.dashboard-page .metric-icon {
+  background: linear-gradient(135deg, var(--accent-a, #2f6fed), var(--accent-b, #7c5cff)); color: #fff;
+  box-shadow: 0 8px 18px -6px var(--accent-a, #2f6fed);
+}
+.dashboard-page .metrics strong { font-size: 32px; letter-spacing: -.02em; }
+.dashboard-page .metrics .diversity-values strong { font-size: 20px; }
+.dashboard-page .metric-diversity { gap: 10px; }
+.dashboard-page .metric-diversity .metric-icon { width: 38px; height: 38px; }
+
+/* ---------- Module cards ---------- */
+.dashboard-page .module-card {
+  border-radius: 18px; border: 1px solid rgba(230,236,245,.9);
+  background: linear-gradient(180deg, #ffffff, #f9fbff);
+  position: relative;
+}
+.dashboard-page .module-card:hover {
+  border-color: transparent; box-shadow: 0 18px 40px rgba(20,45,90,.12);
+}
+.dashboard-page .module-card::after {
+  content: ""; position: absolute; inset: 0; border-radius: 18px; padding: 1px;
+  background: linear-gradient(135deg, var(--aurora-1), var(--aurora-2));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity .25s ease; pointer-events: none;
+}
+.dashboard-page .module-card:hover::after { opacity: 1; }
+.dashboard-page .module-icon { background: linear-gradient(135deg, #eaf1ff, #f1ecff); color: #3b5fc7; }
+.dashboard-page .module-card:hover .module-icon {
+  background: linear-gradient(135deg, var(--aurora-1), var(--aurora-2)); color: #fff;
+}
+.dashboard-page .module-card b { display: inline-flex; align-items: center; gap: 4px; transition: gap .2s ease; }
+.dashboard-page .module-card:hover b { gap: 8px; }
+
+/* ---------- Overview panel ---------- */
+.dashboard-page .overview-panel {
+  border-radius: 20px; border: 1px solid rgba(230,236,245,.9);
+  background: linear-gradient(180deg, #ffffff, #f9fbff);
+}
+.dashboard-page .chart-bars .bar { background: linear-gradient(180deg, #4d8dff, #2f6fed); box-shadow: 0 6px 16px -6px rgba(47,111,237,.7); }
+.dashboard-page .chart-bars .bar-stacked { background: transparent; }
+.dashboard-page .chart-bars .bar-col:nth-child(6) .bar, .dashboard-page .chart-bars .bar-col:nth-child(7) .bar {
+  background: linear-gradient(180deg, #b9d3ff, #8ab0f5); box-shadow: none;
+}
+.dashboard-page .focus-list li { background: #f5f8ff; border: 1px solid #eaf0fc; transition: transform .15s ease, box-shadow .15s ease; }
+.dashboard-page .focus-list li:hover { transform: translateX(3px); box-shadow: 0 6px 16px rgba(20,45,90,.06); }
+
+/* ---------- Updates: timeline ---------- */
+.dashboard-page .updates {
+  border-radius: 20px; border: 1px solid rgba(230,236,245,.9);
+  background: linear-gradient(180deg, #ffffff, #f9fbff);
+}
+.dashboard-page .update-list { position: relative; }
+.dashboard-page .update-list > div {
+  background: #f5f8ff; border: 1px solid #eaf0fc; transition: transform .18s ease, box-shadow .18s ease;
+}
+.dashboard-page .update-list > div:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(20,45,90,.08); }
+.dashboard-page .dot { width: 9px; height: 9px; box-shadow: 0 0 0 4px currentColor22; }
+.dashboard-page .dot.blue { box-shadow: 0 0 0 4px rgba(62,145,195,.18); }
+.dashboard-page .dot.amber { box-shadow: 0 0 0 4px rgba(223,161,42,.18); }
+.dashboard-page .dot.green { box-shadow: 0 0 0 4px rgba(71,165,109,.18); }
+
+/* ---------- Páginas internas (gr/gl/sinistros): hero no mesmo padrão da Visão Geral ---------- */
+.dashboard-page .page-hero {
+  position: relative; overflow: hidden; margin-top: 22px; padding: 34px 36px;
+  border-radius: 26px; color: #fff;
+  background: radial-gradient(900px 380px at 12% -20%, #1b3f7a 0%, transparent 55%),
+              linear-gradient(135deg, #0a1f42, #060f24 65%);
+  box-shadow: 0 22px 55px rgba(8, 22, 48, .26);
+  animation: dash-reveal .6s cubic-bezier(.2,.7,.2,1) both;
+}
+.dashboard-page .page-hero::before, .dashboard-page .page-hero::after {
+  content: ""; position: absolute; width: 340px; height: 340px; border-radius: 50%;
+  filter: blur(74px); opacity: .48; z-index: 0; animation: aurora-drift 14s ease-in-out infinite alternate;
+}
+.dashboard-page .page-hero::before { background: var(--aurora-1); top: -150px; left: 8%; }
+.dashboard-page .page-hero::after { background: var(--aurora-2); bottom: -170px; right: 6%; animation-delay: -6s; }
+.dashboard-page .page-hero > * { position: relative; z-index: 1; }
+.dashboard-page .page-hero-icon { background: rgba(255,255,255,.12); }
+.dashboard-page .page-hero p { color: #b7c8e6; }
+.dashboard-page .page-hero-status { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.16); }
+
+/* ---------- Cards de conteúdo (gr/gl/sinistros) no mesmo padrão glass dos module-card ---------- */
+.dashboard-page .content-card {
+  border-radius: 18px; border: 1px solid rgba(230,236,245,.9);
+  background: linear-gradient(180deg, #ffffff, #f9fbff);
+  position: relative; animation: dash-reveal .55s cubic-bezier(.2,.7,.2,1) both;
+}
+.dashboard-page .content-card:nth-child(1) { animation-delay: 0ms; }
+.dashboard-page .content-card:nth-child(2) { animation-delay: 60ms; }
+.dashboard-page .content-card:nth-child(3) { animation-delay: 120ms; }
+.dashboard-page .content-card:hover { border-color: transparent; box-shadow: 0 18px 40px rgba(20,45,90,.12); }
+.dashboard-page .content-card h3 { gap: 10px; }
+.dashboard-page .content-card h3 svg {
+  width: 30px; height: 30px; padding: 7px; border-radius: 10px; flex: 0 0 auto;
+  background: linear-gradient(135deg, var(--aurora-1), var(--aurora-2)); color: #fff;
+}
+
+/* ---------- Painel "em preparação" no mesmo padrão glass ---------- */
+.dashboard-page .empty-panel {
+  border-radius: 20px; border: 1.5px dashed rgba(47,111,237,.28);
+  background: linear-gradient(180deg, #ffffff, #f5f8ff);
+  animation: dash-reveal .6s cubic-bezier(.2,.7,.2,1) both; animation-delay: .12s;
+}
+.dashboard-page .empty-panel .empty-icon {
+  background: linear-gradient(135deg, var(--aurora-1), var(--aurora-2)); color: #fff;
+}
+
+/* ---------- Entrance choreography ---------- */
+.dashboard-page .fade-up { animation: dash-reveal .55s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes dash-reveal {
+  from { opacity: 0; transform: translateY(16px) scale(.98); filter: blur(3px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+.dashboard-page .welcome, .dashboard-page .overview-panel, .dashboard-page .updates {
+  animation: dash-reveal .6s cubic-bezier(.2,.7,.2,1) both;
+}
+.dashboard-page .overview-panel { animation-delay: .1s; }
+.dashboard-page .updates { animation-delay: .18s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-tile::after, .dashboard-page .welcome::before, .dashboard-page .welcome::after,
+  .dashboard-page .sync-pill .dot-live, .dashboard-page .fade-up,
+  .dashboard-page .welcome, .dashboard-page .overview-panel, .dashboard-page .updates,
+  .dashboard-page .page-hero::before, .dashboard-page .page-hero::after,
+  .dashboard-page .page-hero, .dashboard-page .content-card, .dashboard-page .empty-panel {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 780px) {
+  .dashboard-page .welcome { padding: 30px 24px; }
+  .dashboard-page .welcome h1 { font-size: 28px; }
+  .dashboard-page .topbar { margin-top: 0; border-radius: 0; }
+}
+
+/* ==========================================================================
+   UPGRADE v2 — Transições de página, micro-interações e dinamismo extra
+   Preserva 100% da identidade e dos seletores existentes.
+   ========================================================================== */
+
+/* Page enter / leave transitions (entre páginas internas) */
+.dashboard-page {
+  transition: opacity .32s cubic-bezier(.22,.7,.2,1), transform .32s cubic-bezier(.22,.7,.2,1);
+}
+html.page-leaving .dashboard-page {
+  opacity: 0;
+  transform: translateY(12px) scale(.985);
+  pointer-events: none;
+}
+html.session-ready .dashboard-page {
+  animation: page-enter .48s cubic-bezier(.2,.75,.2,1) both;
+}
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(18px) scale(.97); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+/* Nav links — indicador animado + ícone com life */
+.portal-shell:has(.dashboard-page) .nav a {
+  transition: background .22s ease, color .22s ease, transform .22s cubic-bezier(.2,.8,.2,1);
+}
+.portal-shell:has(.dashboard-page) .nav a:hover {
+  transform: translateX(3px);
+}
+.portal-shell:has(.dashboard-page) .nav a svg {
+  transition: transform .3s cubic-bezier(.34,1.4,.64,1), opacity .2s ease;
+}
+.portal-shell:has(.dashboard-page) .nav a:hover svg,
+.portal-shell:has(.dashboard-page) .nav a.active svg {
+  transform: scale(1.12);
+  opacity: 1;
+}
+.portal-shell:has(.dashboard-page) .nav a.active::before {
+  height: 70%;
+  box-shadow: 0 0 12px rgba(23, 209, 196, .45);
+}
+
+/* Topbar glass — hover sutil no client badge */
+.dashboard-page .client-badge {
+  transition: transform .25s ease;
+}
+.dashboard-page .client-badge:hover {
+  transform: translateY(-1px);
+}
+.dashboard-page .client-icon.logo-tile {
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+}
+.dashboard-page .client-badge:hover .client-icon.logo-tile {
+  transform: scale(1.04);
+}
+
+/* Welcome / page-hero titles — leve “respiração” no gradiente */
+.dashboard-page .welcome h1,
+.dashboard-page .page-hero h1 {
+  background-size: 200% auto;
+  animation: title-shimmer 8s ease-in-out infinite alternate;
+}
+@keyframes title-shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 100% center; }
+}
+
+/* Metrics — ícone com bounce sutil no hover + número com tracking */
+.dashboard-page .metrics article {
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease, border-color .28s ease;
+}
+.dashboard-page .metrics article:hover .metric-icon {
+  transform: scale(1.08) rotate(-4deg);
+  transition: transform .35s cubic-bezier(.34,1.4,.64,1);
+}
+.dashboard-page .metrics strong {
+  transition: letter-spacing .3s ease;
+}
+.dashboard-page .metrics article:hover strong {
+  letter-spacing: .02em;
+}
+
+/* Module cards — seta desliza e ícone “pula” */
+.dashboard-page .module-card {
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease, border-color .28s ease;
+}
+.dashboard-page .module-card .module-icon {
+  transition: transform .4s cubic-bezier(.34,1.4,.64,1), background .3s ease, color .3s ease, box-shadow .3s ease;
+}
+.dashboard-page .module-card:hover .module-icon {
+  transform: scale(1.1) rotate(-6deg);
+  box-shadow: 0 10px 22px -6px rgba(47,111,237,.45);
+}
+.dashboard-page .module-card b {
+  position: relative;
+}
+.dashboard-page .module-card b::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 0; height: 1.5px;
+  background: currentColor;
+  transition: width .3s cubic-bezier(.2,.8,.2,1);
+}
+.dashboard-page .module-card:hover b::after {
+  width: 100%;
+}
+
+/* Content cards (gr / gl / sinistros) */
+.dashboard-page .content-card {
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease, border-color .28s ease;
+  overflow: hidden;
+}
+.dashboard-page .content-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--aurora-1), var(--aurora-2), var(--aurora-3));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .4s cubic-bezier(.2,.8,.2,1);
+}
+.dashboard-page .content-card:hover::before {
+  transform: scaleX(1);
+}
+.dashboard-page .content-card h3 svg {
+  transition: transform .4s cubic-bezier(.34,1.4,.64,1);
+}
+.dashboard-page .content-card:hover h3 svg {
+  transform: scale(1.12) rotate(-5deg);
+}
+
+/* Empty panel — leve “respiração” */
+.dashboard-page .empty-panel {
+  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.dashboard-page .empty-panel:hover {
+  border-color: rgba(47,111,237,.42);
+  box-shadow: 0 12px 32px rgba(20,45,90,.08);
+  transform: translateY(-2px);
+}
+.dashboard-page .empty-panel .empty-icon {
+  animation: empty-breathe 3.2s ease-in-out infinite;
+}
+@keyframes empty-breathe {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(47,111,237,.25); }
+  50%      { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(47,111,237,0); }
+}
+
+/* Chart bars — interação no hover */
+.dashboard-page .chart-bars .bar {
+  transition: height .35s cubic-bezier(.2,.8,.2,1), filter .25s ease, box-shadow .25s ease;
+  cursor: default;
+}
+.dashboard-page .chart-bars .bar-col:hover .bar {
+  filter: brightness(1.15);
+  box-shadow: 0 8px 20px -4px rgba(47,111,237,.55);
+}
+
+/* Focus list — checkbox e item com vida */
+.dashboard-page .focus-list li {
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  cursor: pointer;
+}
+.dashboard-page .focus-list li:hover {
+  transform: translateX(5px);
+  background: #eef4ff;
+  box-shadow: 0 6px 18px rgba(20,45,90,.07);
+}
+.dashboard-page .focus-list input[type="checkbox"] {
+  transition: transform .2s cubic-bezier(.34,1.4,.64,1);
+}
+.dashboard-page .focus-list li:hover input[type="checkbox"] {
+  transform: scale(1.15);
+}
+
+/* Updates timeline items */
+.dashboard-page .update-list > div {
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, background .22s ease;
+}
+.dashboard-page .update-list > div:hover {
+  transform: translateY(-4px);
+  background: #eef4ff;
+  box-shadow: 0 12px 28px rgba(20,45,90,.1);
+}
+.dashboard-page .dot {
+  transition: transform .3s cubic-bezier(.34,1.4,.64,1);
+}
+.dashboard-page .update-list > div:hover .dot {
+  transform: scale(1.35);
+}
+
+/* Logout button — feedback tátil */
+.logout-button {
+  transition: background .22s ease, border-color .22s ease, color .22s ease, transform .2s ease, box-shadow .22s ease;
+}
+.logout-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.18);
+}
+.logout-button:active {
+  transform: translateY(0);
+}
+
+/* Breadcrumb suave */
+.dashboard-page .breadcrumb a {
+  transition: color .2s ease, letter-spacing .2s ease;
+}
+.dashboard-page .breadcrumb a:hover {
+  letter-spacing: .02em;
+}
+
+/* Sync pill pulse já existente — reforço */
+.dashboard-page .sync-pill {
+  transition: transform .25s ease, background .25s ease;
+}
+.dashboard-page .sync-pill:hover {
+  transform: scale(1.03);
+}
+
+/* Page hero status badge */
+.dashboard-page .page-hero-status {
+  transition: transform .25s ease, background .25s ease;
+}
+.dashboard-page .page-hero:hover .page-hero-status {
+  transform: scale(1.04);
+}
+
+/* Reduced motion — desliga tudo o que for decorativo extra */
+@media (prefers-reduced-motion: reduce) {
+  html.page-leaving .dashboard-page,
+  html.session-ready .dashboard-page,
+  .dashboard-page .welcome h1,
+  .dashboard-page .page-hero h1,
+  .dashboard-page .empty-panel .empty-icon,
+  .portal-shell:has(.dashboard-page) .nav a,
+  .portal-shell:has(.dashboard-page) .nav a svg,
+  .dashboard-page .metrics article,
+  .dashboard-page .module-card,
+  .dashboard-page .content-card,
+  .dashboard-page .chart-bars .bar {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   UPGRADE v3 — Biblioteca de conteúdo por tema: chips de filtro em vidro,
+   cabeçalhos de seção, cartões de mídia (Power BI / PDF / Infográfico /
+   Vídeo) com elevação, hover marcante e skeleton/shimmer no carregamento.
+   Reaproveita 100% da paleta aurora/glass já estabelecida.
+   ========================================================================== */
+
+/* ---------- Filter chips: glassmorphism ---------- */
+.dashboard-page .filter-bar { animation: dash-reveal .5s cubic-bezier(.2,.7,.2,1) both; animation-delay: .05s; }
+.dashboard-page .filter-chip {
+  background: rgba(255,255,255,.62); backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(230,236,245,.9); color: var(--ink-500);
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, background .22s ease, color .22s ease, border-color .22s ease;
+}
+.dashboard-page .filter-chip:hover {
+  transform: translateY(-2px); box-shadow: 0 10px 22px rgba(20,45,90,.1); border-color: transparent;
+}
+.dashboard-page .filter-chip.is-active {
+  background: linear-gradient(135deg, var(--aurora-1), var(--aurora-2)); color: #fff; border-color: transparent;
+  box-shadow: 0 10px 26px -6px rgba(47,111,237,.55);
+}
+.dashboard-page .filter-chip.is-active .chip-dot { background: #fff; opacity: 1; }
+
+/* ---------- Section headers: ícone com gradiente rotativo por tema ---------- */
+.dashboard-page .content-section { animation: dash-reveal .55s cubic-bezier(.2,.7,.2,1) both; }
+.dashboard-page .content-section-icon {
+  background: linear-gradient(135deg, var(--sec-a, #2f6fed), var(--sec-b, #17d1c4));
+  box-shadow: 0 8px 18px -6px var(--sec-a, #2f6fed);
+}
+.dashboard-page .content-section:nth-of-type(1) .content-section-icon { --sec-a: #2f6fed; --sec-b: #17d1c4; }
+.dashboard-page .content-section:nth-of-type(2) .content-section-icon { --sec-a: #17d1c4; --sec-b: #4be3a0; }
+.dashboard-page .content-section:nth-of-type(3) .content-section-icon { --sec-a: #b5822a; --sec-b: #e0b355; }
+.dashboard-page .content-section:nth-of-type(4) .content-section-icon { --sec-a: #7c5cff; --sec-b: #b98bff; }
+.dashboard-page .content-section-count { border: 1px solid rgba(230,236,245,.9); background: rgba(255,255,255,.7); backdrop-filter: blur(8px); }
+
+/* Estrutura dinâmica: Categoria → Tema → conteúdos, abastecida por itensPortal. */
+.portal-dynamic-content .content-section { margin-top: 28px; }
+.portal-theme + .portal-theme { margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(222,231,242,.8); }
+.portal-theme-title { margin: 0 0 14px; color: #5d6c82; font: 700 .82rem/1.2 "Plus Jakarta Sans", sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+.media-card-open.is-disabled { opacity: .48; cursor: default; }
+
+/* ---------- Media cards: superfícies em camadas + hover marcante ---------- */
+.dashboard-page .media-card {
+  border-radius: 18px; border: 1px solid rgba(230,236,245,.9);
+  background: linear-gradient(180deg, #ffffff, #f9fbff);
+  transition: transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s cubic-bezier(.4,0,.2,1), border-color .3s ease;
+}
+.dashboard-page .media-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -6px rgba(0,0,0,.15), 0 0 0 1px rgba(47,111,237,.16);
+  border-color: transparent;
+}
+.dashboard-page .media-thumb { transition: filter .3s ease; }
+/* Fallback (sem Link_thumbnail): acento translúcido por tipo de mídia,
+   com leve glassmorphism (ver .media-thumb--cover::before em portal.css). */
+.dashboard-page .media-thumb--cover[data-cover-type="powerbi"],
+.dashboard-page .media-card[data-type="powerbi"] .media-thumb--cover {
+  background: linear-gradient(135deg, rgba(47,111,237,.32), rgba(23,209,196,.14));
+}
+.dashboard-page .media-thumb--cover[data-cover-type="pdf"],
+.dashboard-page .media-card[data-type="pdf"] .media-thumb--cover {
+  background: linear-gradient(135deg, rgba(242,181,107,.34), rgba(242,143,176,.14));
+}
+.dashboard-page .media-thumb--cover[data-cover-type="infografico"],
+.dashboard-page .media-card[data-type="infografico"] .media-thumb--cover {
+  background: linear-gradient(135deg, rgba(124,92,255,.32), rgba(185,139,255,.14));
+}
+.dashboard-page .media-thumb--cover[data-cover-type="video"],
+.dashboard-page .media-card[data-type="video"] .media-thumb--cover {
+  background: linear-gradient(135deg, rgba(242,143,176,.32), rgba(23,209,196,.14));
+}
+.dashboard-page .media-thumb--cover[data-cover-type="default"],
+.dashboard-page .media-card[data-type="default"] .media-thumb--cover {
+  background: linear-gradient(135deg, rgba(159,227,200,.34), rgba(111,196,239,.14));
+}
+.dashboard-page .media-thumb-icon { transition: transform .4s cubic-bezier(.34,1.4,.64,1); color: var(--dash-ink); }
+.dashboard-page .media-card:hover .media-thumb-icon { transform: scale(1.1) rotate(-6deg); }
+.dashboard-page .media-card-open { color: var(--brand-600); }
+.dashboard-page .media-card-open svg { transition: transform .28s cubic-bezier(.2,.8,.2,1); }
+.dashboard-page .media-card:hover .media-card-open svg { transform: translateX(4px); }
+.dashboard-page .media-card:hover .media-type-tag { background: rgba(255,255,255,.32); }
+.dashboard-page .media-card-open {
+  border: 0; background: transparent; padding: 0; cursor: pointer; font-family: inherit;
+}
+.dashboard-page .media-card-open:hover { text-decoration: underline; }
+
+/* Entrada em cascata dos cartões (stagger definido via JS em style.animationDelay) */
+.dashboard-page .media-card.fade-up { animation: dash-reveal .5s cubic-bezier(.2,.7,.2,1) both; }
+
+/* ---------- Empty state (Sinistros) com o mesmo tratamento glass ---------- */
+.dashboard-page .roadmap-status { display: inline-flex; align-items: center; gap: 6px; }
+.dashboard-page .roadmap-status .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: #dfa12a; animation: pulse 1.8s infinite; }
+
+/* ---------- Cartões bloqueados (pré-visualização / aguardando integração) ---------- */
+.dashboard-page .media-card[data-locked="true"] .media-thumb { filter: grayscale(.2) brightness(.94); }
+.dashboard-page .media-card[data-locked="true"] .media-card-body { opacity: .78; }
+.dashboard-page .media-card[data-locked="true"]:hover { transform: none; box-shadow: var(--shadow-sm); border-color: rgba(230,236,245,.9); }
+.dashboard-page .media-card[data-locked="true"] .media-thumb-icon,
+.dashboard-page .media-card[data-locked="true"] .media-type-tag { opacity: .5 !important; }
+
+@media (max-width: 780px) {
+  .dashboard-page .filter-bar { gap: 8px; }
+  .dashboard-page .filter-chip { padding: 8px 13px; font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-page .filter-bar,
+  .dashboard-page .content-section,
+  .dashboard-page .media-card,
+  .dashboard-page .media-thumb-icon,
+  .dashboard-page .filter-chip,
+  .dashboard-page .media-card-open svg,
+  .thumb-shimmer {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}

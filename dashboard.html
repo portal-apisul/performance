@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal de Gestão & Performance</title>
+  <link rel="icon" type="image/png" href="https://repositorio-apisul.github.io/mondelez/icone-apisul.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/portal.css">
+  <link rel="stylesheet" href="css/client-brand.css">
+  <link rel="stylesheet" href="css/sidebar-user.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body data-shell-manual>
+  <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+  <div class="portal-shell">
+    <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand brand--apisul">
+        <img src="https://repositorio-apisul.github.io/mondelez/logo-apisul-branca.png" alt="Grupo Apisul">
+      </div>
+      <div class="side-label">Navegação</div>
+      <nav class="nav">
+        <a class="active" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1v-9"/></svg><span>Visão geral</span></a>
+        <a data-module="gr" href="gr.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.6 3.2 8.4 8 9 4.8-.6 8-4.4 8-9V6l-8-3Z"/><path d="m9.5 12 2 2 3.5-3.5"/></svg><span>Gerenciamento de Risco</span></a>
+        <a data-module="gl" href="gl.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg><span>Gestão Logística</span></a>
+        <a data-module="sinistros" href="sinistros.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg><span>Portal de Sinistros</span></a>
+      </nav>
+      <div class="sidebar-actions">
+    <div class="sidebar-foot"><span>Ambiente corporativo</span><small>Versão da atualização 2.2</small></div>
+        <button class="logout-button" id="logout-button" type="button">↪ <span>Sair</span></button>
+      </div>
+    </aside>
+    <main class="main-content dashboard-page" id="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <div class="client-badge" aria-label="Cliente atual">
+            <span class="client-icon logo-tile" id="client-logo"><span id="client-initial">A</span></span>
+            <div><small>Portal de Gestão &amp; Performance</small><strong id="client-name">Apisul</strong></div>
+          </div>
+        </div>
+        <div class="topbar-user" aria-label="Usuário autenticado">
+          <div class="topbar-user-avatar" id="topbar-user-avatar"><span>U</span></div>
+          <div><small>Usuário autenticado</small><strong id="topbar-user-name">Usuário</strong></div>
+        </div>
+      </header>
+
+      <section class="welcome">
+        <div>
+          <span class="eyebrow">Painel principal</span>
+          <h1 id="greeting">Olá, seja bem-vindo.</h1>
+          <p>Acompanhe os principais conteúdos e indicadores do seu cliente.</p>
+        </div>
+        <div class="hero-pills">
+          <span class="sync-pill"><i class="dot-live"></i>Atualização automática habilitada</span>
+          <span class="sync-pill" id="dashboard-last-update" hidden></span>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="Indicadores executivos">
+        <article>
+          <div><small>Total de conteúdos</small><strong data-count="0" id="metric-total">0</strong><em id="metric-total-sub">—</em></div>
+          <span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span>
+        </article>
+        <article>
+          <div><small>Adicionados nos últimos 30 dias</small><strong data-count="0" id="metric-recent">0</strong><em id="metric-recent-sub">—</em></div>
+          <span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></span>
+        </article>
+        <article>
+          <div><small>Sem atualização há mais de 90 dias</small><strong data-count="0" id="metric-stale">0</strong><em class="warn" id="metric-stale-sub">—</em></div>
+          <span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        </article>
+        <article class="metric-diversity">
+          <div class="metric-diversity-content"><small>Diversidade do acervo</small><div class="diversity-values" aria-label="Diversidade do acervo"><span><strong data-count="0" id="metric-categories">0</strong><em>Categorias</em></span><span><strong data-count="0" id="metric-themes">0</strong><em>Temas</em></span><span><strong data-count="0" id="metric-media-types">0</strong><em>Tipos de mídia</em></span></div></div>
+          <span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h6v6H4zM14 5h6v6h-6zM4 15h6v4H4zM14 15h6v4h-6z"/></svg></span>
+        </article>
+      </section>
+
+      <section class="overview-panel" aria-label="Indicadores gráficos">
+        <div class="overview-chart-full">
+          <div class="section-heading"><div><h2>Conteúdos por categoria</h2><p>Volume de conteúdos ativos, calculado a partir do SharePoint</p></div></div>
+          <div class="chart-bars" id="dashboard-category-chart" aria-hidden="true">
+            <!-- Preenchido dinamicamente: uma barra por categoria, empilhada por tema. -->
+          </div>
+          <div class="overview-legend" id="dashboard-category-legend"></div>
+        </div>
+      </section>
+
+      <section class="quick">
+        <div class="section-heading"><div><h2>Acessos rápidos</h2><p>Selecione uma vertente</p></div></div>
+        <div class="module-grid">
+          <a class="module-card" data-module="gr" href="gr.html">
+            <span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.6 3.2 8.4 8 9 4.8-.6 8-4.4 8-9V6l-8-3Z"/><path d="m9.5 12 2 2 3.5-3.5"/></svg></span>
+            <div><h3>Gerenciamento de Risco</h3><p>Indicadores, documentos e treinamentos relacionados à prevenção e segurança.</p><b>Acessar GR →</b></div>
+          </a>
+          <a class="module-card" data-module="gl" href="gl.html">
+            <span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg></span>
+            <div><h3>Gestão Logística</h3><p>Acompanhe performance operacional, entregas e conteúdos da operação logística.</p><b>Acessar GL →</b></div>
+          </a>
+          <a class="module-card" data-module="sinistros" href="sinistros.html">
+            <span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg></span>
+            <div><h3>Portal de Sinistros</h3><p>Módulo exclusivo de GR, preparado para receber seu fluxo independente.</p><b>Ver estrutura →</b></div>
+          </a>
+          <div class="module-card module-empty">
+            <span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            <div><h3>Novos módulos</h3><p>A arquitetura está preparada para acrescentar páginas sem alterar o login.</p><b>Em evolução</b></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="updates">
+        <div class="section-heading"><h2>Atualizações recentes</h2><span class="sharepoint-tag">SharePoint</span></div>
+        <div class="media-grid" id="dashboard-recent-grid">
+          <!-- Preenchido dinamicamente em assets/dashboard-funcional.js, reaproveitando
+               exatamente o mesmo componente .media-card usado em GR e GL. -->
+        </div>
+        <p class="update-list-empty" id="dashboard-recent-empty" hidden>Nenhum conteúdo recente encontrado no SharePoint.</p>
+      </aside>
+
+      <p class="page-footer-note">Portal de Gestão &amp; Performance · dados sincronizados automaticamente via Power Automate e SharePoint</p>
+    </main>
+  </div>
+  <script src="assets/app-shell.js"></script>
+  <script src="assets/content-funcional.js"></script>
+  <script src="assets/dashboard-funcional.js"></script>
+</body>
+</html>

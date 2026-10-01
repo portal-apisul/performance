@@ -1,0 +1,35 @@
+/* Identidade dinâmica do cliente na dashboard. */
+.topbar { height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.client-badge { gap: 12px; min-width: 0; }
+.client-icon {
+  position: relative; width: clamp(56px, 6vw, 68px); aspect-ratio: 1; height: auto; padding: 0; flex: 0 0 auto;
+  border-radius: 14px; background: transparent;
+  border: 0; color: #23608f; box-shadow: none; overflow: hidden;
+}
+.client-icon > span { position: absolute; inset: 0; display: grid; place-items: center; font-size: 19px; }
+.client-icon img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; border-radius: 0; filter: none; }
+.client-badge small { color: #6e849a; font-size: 9px; text-transform: uppercase; letter-spacing: .13em; font-weight: 700; }
+.client-badge strong { margin-top: 4px; max-width: 360px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #173252; font-size: 17px; line-height: 1.1; letter-spacing: -.02em; }
+.sidebar-client { display: flex; align-items: center; gap: 10px; margin: 20px 8px 24px; padding: 10px; border: 1px solid rgba(185,220,248,.19); border-radius: 13px; background: rgba(255,255,255,.075); min-width: 0; }
+.sidebar-client-logo { position: relative; width: 44px; aspect-ratio: 1; padding: 5px; flex: 0 0 auto; overflow: hidden; border: 1px solid rgba(143,215,255,.34); border-radius: 10px; display: grid; place-items: center; background: #061d38; color: #c9ecff; font-weight: 800; box-shadow: inset 0 1px 0 rgba(255,255,255,.08); }
+.sidebar-client-logo > span { position: absolute; inset: 0; display: grid; place-items: center; }
+.sidebar-client-logo img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; border-radius: 5px; filter: drop-shadow(0 1px 4px rgba(0,0,0,.28)); }
+.sidebar-client small { display: block; color: #9fbbd5; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.sidebar-client strong { display: block; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #fff; font-size: 13px; }
+.sidebar-actions { margin-top: auto; }
+.sidebar-actions .sidebar-foot { margin-top: 0; }
+.logout-button { width: 100%; margin-top: 14px; padding: 10px 12px; border: 1px solid rgba(255,255,255,.17); border-radius: 10px; background: rgba(255,255,255,.06); color: #dcebf9; cursor: pointer; text-align: center; font-size: 12px; transition: .2s ease; }
+.logout-button:hover { border-color: rgba(255,255,255,.38); background: rgba(255,255,255,.13); color: #fff; }
+.topbar-user { display: flex; align-items: center; gap: 10px; min-width: 0; padding-left: 18px; border-left: 1px solid #e0e8ef; }
+.topbar-user-avatar { width: 38px; height: 38px; display: grid; place-items: center; flex: 0 0 auto; overflow: hidden; border: 2px solid #d9eafa; border-radius: 50%; background: #eaf5ff; color: #0b5d9e; font-size: 12px; font-weight: 800; }
+.topbar-user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.topbar-user small { display: block; color: #6e849a; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.topbar-user strong { display: block; max-width: 190px; margin-top: 3px; overflow: hidden; color: #173252; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 700px) {
+  .client-icon { width: 54px; }
+  .client-badge strong { max-width: 175px; font-size: 15px; }
+  .client-badge small { font-size: 8px; }
+  .sidebar-client { display: none; }
+  .topbar-user { padding-left: 12px; }
+  .topbar-user > div:last-child { display: none; }
+}
